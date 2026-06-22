@@ -1,6 +1,13 @@
 == Environment Variables
 
 .TAU Environment Variables
+[cols=",",options="header",]
+|===
+|VARIABLE NAME |DESCRIPTION
+|Test |Test1
+|===
+
+.TAU Environment Variables
 .TAU Environment Variables
 [cols=",",options="header",]
 |===
