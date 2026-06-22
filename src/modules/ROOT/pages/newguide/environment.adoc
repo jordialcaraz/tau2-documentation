@@ -1,17 +1,7 @@
 == Environment Variables
 
 
-.Test Environment Variables
-[cols=",",options="header",]
-|===
-|VARIABLE NAME |DESCRIPTION
-|TAU_PROFILE |Set to 1 to have TAU profile your code
-|===
-
-
-
-.TAU Environment Variables
-.TAU Environment Variables
+.General purpose Environment Variables
 [cols=",",options="header",]
 |===
 |VARIABLE NAME |DESCRIPTION
@@ -19,6 +9,23 @@
 |TAU_TRACE |Set to 1 to have TAU trace your code
 |TAU_TRACE_FORMAT |Set to `otf2` or `perfetto` to output those trace formats instead of TAU's default. TAU must be configured with support for those formats.
 |TAU_METRICS |Colon delimited list of TAU/PAPI metrics to profile
+|===
+
+.PAPI Environment Variables
+[cols=",",options="header",]
+|===
+|VARIABLE NAME |DESCRIPTION
+|PAPI_EVENT |Sets the hardware counter to use when TAU is configured with -PAPI. See link:#HardwarePerformanceCounters[???]
+|===
+
+
+.TAU Environment Variables
+.TAU Environment Variables
+[cols=",",options="header",]
+|===
+|VARIABLE NAME |DESCRIPTION
+
+
 |PAPI_EVENT |Sets the hardware counter to use when TAU is configured with -PAPI. See link:#HardwarePerformanceCounters[???]
 |PCL_EVENT |Sets the hardware counter to use when TAU is configured with -PCL. See link:#HardwarePerformanceCounters[???]
 |PROFILEDIR |Selectively measure groups of routines and statements. Use with -profile command line option. See link:#SelectiveProfiling[???]
