@@ -1,6 +1,6 @@
 == Environment Variables
 
-.TAU Environment Variables
+
 .Test Environment Variables
 [cols=",",options="header",]
 |===
