@@ -1,6 +1,16 @@
 == Environment Variables
 
 .TAU Environment Variables
+.Test Environment Variables
+[cols=",",options="header",]
+|===
+|VARIABLE NAME |DESCRIPTION
+|TAU_PROFILE |Set to 1 to have TAU profile your code
+|===
+
+
+
+.TAU Environment Variables
 .TAU Environment Variables
 [cols=",",options="header",]
 |===
