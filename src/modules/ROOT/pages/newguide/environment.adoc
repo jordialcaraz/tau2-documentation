@@ -33,6 +33,11 @@ Default value is 0 (off). When TAU_SAMPLING is set, we collect additional profil
 
 For TAU_PROFILE, in addition to regular TAU instrumented profile output, samples will show up as additional events prefixed by [SAMPLE] for each unique function, file and source line number combination. These events are grouped under [INTERMEDIATE] event nodes for the instrumented TAU context where the samples occured. In addition, if TAU_EBS_UNWIND is active, [UNWIND] event nodes may be generated for each discovered callstack entry found by the callstack unwinder.
 
+
+TAU_SAMPLING is dependent on the availability of BFD as determined by the -bfd configuration option when building TAU. Its ability to resolve sample addresses into function, file name and source line number information may be limited or missing if BFD is missing or is installed with limited functionality. If in doubt, please try building TAU with "-bfd=download". Any one of function, file name and source line number may be missing. In the event all three are, the event is marked as "UNRESOLVED". The TAU_EBS_KEEP_UNRESOLVED_ADDR variable enables addresses to be retained for unresolved results.
+
+
+
 |===
 
 .Hardware Counters Environment Variables
@@ -42,6 +47,19 @@ For TAU_PROFILE, in addition to regular TAU instrumented profile output, samples
 |PCL_EVENT |Sets the hardware counter to use when TAU is configured with -PCL. See link:#HardwarePerformanceCounters[???]
 
 |===
+
+
+.GPU Environment Variables
+[cols=",",options="header",]
+|===
+|TAU_ROCM_PCS_CUS |Set this to 1 to report each ROCm PC sample according to the device id and the computational unit that triggered the event.
+|TAU_CUPTI_PC_HWB |Set to the hardware buffer size (in MBytes) to use with cupti PC sampling (activated with the -cupti_pc option to tau_exec)
+|TAU_CUPTI_PC_PERIOD |Set to the sampling period to use with cupti PC sampling (activated with the -cupti_pc option to tau_exec)
+|L0_METRICGROUP |Specify Intel GPU Metrics. Check available metrics with unitrace `--metric-list` or `examples/gpu/oneapi/l0_check_metrics``
+|TAU_L0_SAMPLING_INTERVAL|Set to the sampling period to use with L0 PC Sampling (activated with the -l0_pc option to tau_exec and the unit is usecond)
+
+|===
+
 
 
 .TAU Environment Variables
@@ -60,7 +78,6 @@ For TAU_PROFILE, in addition to regular TAU instrumented profile output, samples
 |TAU_COMPILER_MIN_INSTRUCTION_COUNT |Excludes functions from instrumentation if their instruction count is below the set value, Defaults to 50. Set to 1 to include all functions.
 
 
-TAU_SAMPLING is dependent on the availability of BFD as determined by the -bfd configuration option when building TAU. Its ability to resolve sample addresses into function, file name and source line number information may be limited or missing if BFD is missing or is installed with limited functionality. If in doubt, please try building TAU with "-bfd=download". Any one of function, file name and source line number may be missing. In the event all three are, the event is marked as "UNRESOLVED". The TAU_EBS_KEEP_UNRESOLVED_ADDR variable enables addresses to be retained for unresolved results.
 
 |TAU_EBS_SOURCE |Default value is "itimer". This variable sets the metric that determines the period of sampling. If the value is "itimer" (default), it represents the number of microseconds between samples (as determined by TAU_EBS_PERIOD). If the value is a PAPI metric (eg. PAPI_FP_INS), then it represents the number of counts of that metric between samples (eg. every 10,000 floating-point instructions if PAPI_FP_INS is used). For "itimer", the samples occur as a result of system timer interrupts while for PAPI they occur in response to PAPI counter overflow interrupts set to the value of the TAU_EBS_PERIOD.
 |TAU_EBS_PERIOD |Default value is 1,000. This variable sets the period between samples. The semantics of this value is discussed in the section above on TAU_EBS_SOURCE.
@@ -68,8 +85,10 @@ TAU_SAMPLING is dependent on the availability of BFD as determined by the -bfd c
 |TAU_EBS_UNWIND_DEPTH |Default value is 10. This controls how many layers of the callstack TAU should unwind before attaching the result to the appropriate TAU event context.
 |TAU_EBS_KEEP_UNRESOLVED_ADDR |Default value is 0 (off). When set, this variable allows sample addresses that fail to be resolved by BFD to be recorded as "UNRESOLVED <modulename> ADDR <addr> instead of "UNRESOLVED <modulename>". This provides nominally more information than the default scenario in light of missing BFD information.
 |TAU_EBS_RESOLUTION |Can be set to file, function or line. Is line by default. Event based sampling will resolve to the selected level of granularity.
+
 |TAU_TRACK_SIGNALS |Set this variables to 1 to capture callstack as metadata at point of failure.
 |TAU_SUMMARY |Set this variables to 1 to generate just min/max/stddev/mean statistics instead of per-node data. Use paraprof -dumpsummary and then pprof -f profile.Max/Min to see the data.
+
 |TAU_IBM_BG_HWP_COUNTERS |Set this variable to 1 to include IBM's UPC Hardware Performance counters in the metadata for process 0. Requires the use of MPI.
 |TAU_CUPTI_API |Default: `runtime`, options: `runtime,driver,both`. Controls which layer of CUDA is tracked within the CUPTI measurement system. See for example: `tau_exec -T serial,cupti -cupti ./matmult`. Option should be set basied on which layer the CUDA program uses—`runtime` when the program uses the CUDA runtime API, `driver` when the program uses the driver API. NOTE: Both the PGI accelerator and the HMPP compilers use the driver API.
 |TAU_TRACK_MPI_T_PVARS |Set this variable to 1 to enable collection of MPI_T PVAR values
@@ -77,9 +96,5 @@ TAU_SAMPLING is dependent on the availability of BFD as determined by the -bfd c
 |TAU_MPI_T_CVAR_VALUES |Set this to the value(s) you want assigned to the variable(s) specified in `TAU_MPI_T_CVAR_METRICS`
 |TAU_SET_NODE |Set this to 0 to allow MPI configurations of TAU to work correctly with serial codes.
 |TAU_THREAD_PER_GPU_STREAM |Set this to 1 to report each GPU stream as a distinct TAU thread. Currently supports CUPTI only.
-|TAU_ROCM_PCS_CUS |Set this to 1 to report each ROCm PC sample according to the device id and the computational unit that triggered the event.
-|TAU_CUPTI_PC_HWB |Set to the hardware buffer size (in MBytes) to use with cupti PC sampling (activated with the -cupti_pc option to tau_exec)
-|TAU_CUPTI_PC_PERIOD |Set to the sampling period to use with cupti PC sampling (activated with the -cupti_pc option to tau_exec)
-|L0_METRICGROUP |Specify Intel GPU Metrics. Check available metrics with unitrace `--metric-list` or `examples/gpu/oneapi/l0_check_metrics``
-|TAU_L0_SAMPLING_INTERVAL|Set to the sampling period to use with L0 PC Sampling (activated with the -l0_pc option to tau_exec and the unit is usecond)
+
 |===
