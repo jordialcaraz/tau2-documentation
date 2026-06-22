@@ -38,38 +38,6 @@ TAU_SAMPLING is dependent on the availability of BFD as determined by the -bfd c
 
 
 
-|===
-
-.Hardware Counters Environment Variables
-[cols=",",options="header",]
-|===
-|PAPI_EVENT |Sets the hardware counter to use when TAU is configured with -PAPI. See link:#HardwarePerformanceCounters[???]
-|PCL_EVENT |Sets the hardware counter to use when TAU is configured with -PCL. See link:#HardwarePerformanceCounters[???]
-
-|===
-
-
-.GPU Environment Variables
-[cols=",",options="header",]
-|===
-|TAU_ROCM_PCS_CUS |Set this to 1 to report each ROCm PC sample according to the device id and the computational unit that triggered the event.
-|TAU_CUPTI_PC_HWB |Set to the hardware buffer size (in MBytes) to use with cupti PC sampling (activated with the -cupti_pc option to tau_exec)
-|TAU_CUPTI_PC_PERIOD |Set to the sampling period to use with cupti PC sampling (activated with the -cupti_pc option to tau_exec)
-|L0_METRICGROUP |Specify Intel GPU Metrics. Check available metrics with unitrace `--metric-list` or `examples/gpu/oneapi/l0_check_metrics``
-|TAU_L0_SAMPLING_INTERVAL|Set to the sampling period to use with L0 PC Sampling (activated with the -l0_pc option to tau_exec and the unit is usecond)
-
-|===
-
-
-
-.TAU Environment Variables
-.TAU Environment Variables
-[cols=",",options="header",]
-|===
-|VARIABLE NAME |DESCRIPTION
-
-
-
 
 |TAU_MUSE_PACKAGE |Sets the MAGNET/MUSE package name. Use with the -muse TAU configuration option. See link:#MultipleHardwareCounters[???]
 
@@ -89,12 +57,41 @@ TAU_SAMPLING is dependent on the availability of BFD as determined by the -bfd c
 |TAU_TRACK_SIGNALS |Set this variables to 1 to capture callstack as metadata at point of failure.
 |TAU_SUMMARY |Set this variables to 1 to generate just min/max/stddev/mean statistics instead of per-node data. Use paraprof -dumpsummary and then pprof -f profile.Max/Min to see the data.
 
-|TAU_IBM_BG_HWP_COUNTERS |Set this variable to 1 to include IBM's UPC Hardware Performance counters in the metadata for process 0. Requires the use of MPI.
-|TAU_CUPTI_API |Default: `runtime`, options: `runtime,driver,both`. Controls which layer of CUDA is tracked within the CUPTI measurement system. See for example: `tau_exec -T serial,cupti -cupti ./matmult`. Option should be set basied on which layer the CUDA program uses—`runtime` when the program uses the CUDA runtime API, `driver` when the program uses the driver API. NOTE: Both the PGI accelerator and the HMPP compilers use the driver API.
+
+|===
+
+.MPI Environment Variables
+[cols=",",options="header",]
+|===
 |TAU_TRACK_MPI_T_PVARS |Set this variable to 1 to enable collection of MPI_T PVAR values
 |TAU_MPI_T_CVAR_METRICS |Set this to the MPI_T variable(s) you want to control, in conjunction with the values set in `TAU_MPI_T_CVAR_VALUES`
 |TAU_MPI_T_CVAR_VALUES |Set this to the value(s) you want assigned to the variable(s) specified in `TAU_MPI_T_CVAR_METRICS`
 |TAU_SET_NODE |Set this to 0 to allow MPI configurations of TAU to work correctly with serial codes.
-|TAU_THREAD_PER_GPU_STREAM |Set this to 1 to report each GPU stream as a distinct TAU thread. Currently supports CUPTI only.
 
 |===
+
+.Hardware Counters Environment Variables
+[cols=",",options="header",]
+|===
+|PAPI_EVENT |Sets the hardware counter to use when TAU is configured with -PAPI. See link:#HardwarePerformanceCounters[???]
+|PCL_EVENT |Sets the hardware counter to use when TAU is configured with -PCL. See link:#HardwarePerformanceCounters[???]
+|TAU_IBM_BG_HWP_COUNTERS |Set this variable to 1 to include IBM's UPC Hardware Performance counters in the metadata for process 0. Requires the use of MPI.
+
+
+|===
+
+
+.GPU Environment Variables
+[cols=",",options="header",]
+|===
+|TAU_CUPTI_API |Default: `runtime`, options: `runtime,driver,both`. Controls which layer of CUDA is tracked within the CUPTI measurement system. See for example: `tau_exec -T serial,cupti -cupti ./matmult`. Option should be set basied on which layer the CUDA program uses—`runtime` when the program uses the CUDA runtime API, `driver` when the program uses the driver API. NOTE: Both the PGI accelerator and the HMPP compilers use the driver API.
+|TAU_THREAD_PER_GPU_STREAM |Set this to 1 to report each GPU stream as a distinct TAU thread. Currently supports CUPTI only.
+|TAU_ROCM_PCS_CUS |Set this to 1 to report each ROCm PC sample according to the device id and the computational unit that triggered the event.
+|TAU_CUPTI_PC_HWB |Set to the hardware buffer size (in MBytes) to use with cupti PC sampling (activated with the -cupti_pc option to tau_exec)
+|TAU_CUPTI_PC_PERIOD |Set to the sampling period to use with cupti PC sampling (activated with the -cupti_pc option to tau_exec)
+|L0_METRICGROUP |Specify Intel GPU Metrics. Check available metrics with unitrace `--metric-list` or `examples/gpu/oneapi/l0_check_metrics``
+|TAU_L0_SAMPLING_INTERVAL|Set to the sampling period to use with L0 PC Sampling (activated with the -l0_pc option to tau_exec and the unit is usecond)
+
+|===
+
+
