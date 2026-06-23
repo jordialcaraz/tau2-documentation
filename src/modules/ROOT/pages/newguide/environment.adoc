@@ -67,6 +67,7 @@ TAU_SAMPLING is dependent on the availability of BFD as determined by the -bfd c
 .MPI Environment Variables
 [cols=",",options="header",]
 |===
+|VARIABLE NAME |DESCRIPTION
 |TAU_TRACK_MPI_T_PVARS |Set this variable to 1 to enable collection of MPI_T PVAR values
 |TAU_MPI_T_CVAR_METRICS |Set this to the MPI_T variable(s) you want to control, in conjunction with the values set in `TAU_MPI_T_CVAR_VALUES`
 |TAU_MPI_T_CVAR_VALUES |Set this to the value(s) you want assigned to the variable(s) specified in `TAU_MPI_T_CVAR_METRICS`
@@ -78,6 +79,7 @@ TAU_SAMPLING is dependent on the availability of BFD as determined by the -bfd c
 .GPU Environment Variables
 [cols=",",options="header",]
 |===
+|VARIABLE NAME |DESCRIPTION
 |TAU_CUPTI_API |Default: `runtime`, options: `runtime,driver,both`. Controls which layer of CUDA is tracked within the CUPTI measurement system. See for example: `tau_exec -T serial,cupti -cupti ./matmult`. Option should be set basied on which layer the CUDA program uses—`runtime` when the program uses the CUDA runtime API, `driver` when the program uses the driver API. NOTE: Both the PGI accelerator and the HMPP compilers use the driver API.
 |TAU_THREAD_PER_GPU_STREAM |Set this to 1 to report each GPU stream as a distinct TAU thread. Currently supports CUPTI only.
 |TAU_ROCM_PCS_CUS |Set this to 1 to report each ROCm PC sample according to the device id and the computational unit that triggered the event.
