@@ -56,6 +56,10 @@ TAU_SAMPLING is dependent on the availability of BFD as determined by the -bfd c
 
 |TAU_TRACK_SIGNALS |Set this variables to 1 to capture callstack as metadata at point of failure.
 |TAU_SUMMARY |Set this variables to 1 to generate just min/max/stddev/mean statistics instead of per-node data. Use paraprof -dumpsummary and then pprof -f profile.Max/Min to see the data.
+|PAPI_EVENT |Sets the hardware counter to use when TAU is configured with -PAPI. See link:#HardwarePerformanceCounters[???]
+|PCL_EVENT |Sets the hardware counter to use when TAU is configured with -PCL. See link:#HardwarePerformanceCounters[???]
+|TAU_IBM_BG_HWP_COUNTERS |Set this variable to 1 to include IBM's UPC Hardware Performance counters in the metadata for process 0. Requires the use of MPI.
+
 
 
 |===
@@ -67,16 +71,6 @@ TAU_SAMPLING is dependent on the availability of BFD as determined by the -bfd c
 |TAU_MPI_T_CVAR_METRICS |Set this to the MPI_T variable(s) you want to control, in conjunction with the values set in `TAU_MPI_T_CVAR_VALUES`
 |TAU_MPI_T_CVAR_VALUES |Set this to the value(s) you want assigned to the variable(s) specified in `TAU_MPI_T_CVAR_METRICS`
 |TAU_SET_NODE |Set this to 0 to allow MPI configurations of TAU to work correctly with serial codes.
-
-|===
-
-.Hardware Counters Environment Variables
-[cols=",",options="header",]
-|===
-|PAPI_EVENT |Sets the hardware counter to use when TAU is configured with -PAPI. See link:#HardwarePerformanceCounters[???]
-|PCL_EVENT |Sets the hardware counter to use when TAU is configured with -PCL. See link:#HardwarePerformanceCounters[???]
-|TAU_IBM_BG_HWP_COUNTERS |Set this variable to 1 to include IBM's UPC Hardware Performance counters in the metadata for process 0. Requires the use of MPI.
-
 
 |===
 
